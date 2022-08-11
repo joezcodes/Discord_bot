@@ -1,0 +1,33 @@
+import DiscordJS, { Intents } from 'discord.js'
+import dotenv from 'dotenv'
+dotenv.config()
+let x = 'The Bot is Ready';
+
+// place your event link in y
+let y = 'https://discord.gg/5m66Va6F?event=998271239401521232';
+
+// create client
+const client = new DiscordJS.Client({
+    intents: [
+        Intents.FLAGS.GUILDS,
+        Intents.FLAGS.GUILD_MESSAGES
+    ]
+})
+
+
+// listen when bot goes online
+client.on('ready', () => {
+    console.log(x);
+})
+
+
+// listen when someone says events
+client.on('messageCreate', (message) => {
+    if(message.content === 'events') {
+        message.reply({content: y})
+    }
+})
+
+
+// Use bot token
+client.login(process.env.TOKEN)
