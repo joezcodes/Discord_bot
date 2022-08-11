@@ -1,0 +1,157 @@
+// discord developer portal:
+// username: **** pw: ****
+
+// Once Visual Studios Open:
+
+// Open terminal 
+
+// CTRL+L to clear terminal 
+
+
+// create package.json file:
+npm init -y
+
+CTRL+L
+
+
+
+//install required dependencies 
+// install discord.js and dotenv packages
+
+npm install discord.js dotenv
+
+
+//install typescript
+
+// "npm install -g"  Installs as global Dependencie
+// may need to run VSCode as admin to work
+
+npm install -g typescript ts-node
+
+
+// initualize our ts code
+// creates typescript config file
+
+tsc -init
+
+=======================================================
+// GOT ERROR: 
+
+tsc.ps1 cannot be loaded because running 
+scripts is disabled on this system. 
+
+For more information, see about_Execution_Policies at      
+https:/go.microsoft.com/fwlink/?LinkID=135170.
+
+At line:1 char:1
++ tsc -init
++ ~~~
+    + CategoryInfo          : SecurityError: (:) [], PSSecurityException
+    + FullyQualifiedErrorId : UnauthorizedAccess
+
+
+Solution?:
+
+Open new terminal:
+
+Set-ExecutionPolicy -Scope CurrentUser Unrestricted
+
+=======================================================
+// create 2 files in project with new file button
+
+// index.ts  :Main code
+// .env      :Store our token
+
+// In the .env file: 
+
+TOKEN = PASTE TOKEN FROM DISCORD BOT
+
+
+// In the index.ts file:
+
+import DiscordJS from 'discord.js'
+import dotenv from 'dotenv'
+
+
+//make sure you have access to your .env file: 
+
+dotenv.config()
+
+
+// create own client
+// Function call
+//intents tell discord what your bot 
+// what your bot intends to use 
+// what information your bot needs
+// on "Intent"  in the array press:
+// CTRL+SPACE to import from DiscordJS
+// Will be added to imports at the top
+// Gives access to intents autocomplete
+
+const client = new DiscordJS.Client({
+	intents: [
+		Intents.FLAGS.GUILDS,
+		Intents.FLAGS.GUILD_MESSAGES
+	]
+})
+
+
+// Listen for client or when bot goes online
+
+client.on('ready', () => {
+	console.log('The Bot is Ready')
+})
+
+
+
+// Listen when ever some one says ping 
+// Reply with pong 
+
+client.on('messageCreate', (message) => {
+	if(message.content === 'ping') {
+		message.reply({
+			content: 'pong';
+		})
+	}
+})
+
+
+// Log into the bot
+// TOKEN name must match token name in .env
+
+client.login(process.env.TOKEN)
+
+
+
+// go back to terminal 
+
+ts-node index.ts 
+
+// will say bot is ready 
+// go to discord 
+// Bot should be online 
+
+// in chat type 'test' : Nothing
+
+// type ping : Should get Pong
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
